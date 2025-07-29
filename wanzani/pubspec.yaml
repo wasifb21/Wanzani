@@ -1,0 +1,55 @@
+name: wanzani
+description: A new Flutter project.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  easy_localization: ^3.0.1
+  flutter_stripe: ^11.5.0
+  flutter_dotenv: ^5.0.2
+  http: ^1.1.0
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
+  firebase_database: ^11.3.9
+  firebase_storage: ^12.0.0
+  cloud_firestore: ^5.0.0
+  image_picker: ^0.8.7
+  video_player: ^2.10.0
+  uuid: ^3.0.7
+  firebase_app_check: ^0.3.0
+  timeago: ^3.5.0
+  google_mobile_ads: ^4.0.0
+  audioplayers: ^5.2.0
+  cached_network_image: ^3.3.1
+  just_audio: ^0.9.36
+  audio_session: ^0.1.13
+  google_sign_in: ^6.2.1
+  country_code_picker: ^3.0.0
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/logo.png
+    - assets/avatar.png
+    - assets/avatar2.png
+    - assets/avatar3.png
+    - assets/google.png
+    - assets/facebook.png
+    - assets/x.png
+    - assets/visa_icon.png
+    - assets/languages/

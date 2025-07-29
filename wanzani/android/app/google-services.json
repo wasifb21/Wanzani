@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "938291175943",
+    "firebase_url": "https://wanzani-663c5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "wanzani-663c5",
+    "storage_bucket": "wanzani-663c5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938291175943:android:622e507091ea9ad5ae80a2",
+        "android_client_info": {
+          "package_name": "com.example.wanzani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938291175943-v3uifjutmo4935fbj9mj3a4cdtjrmpru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wanzani",
+            "certificate_hash": "9de39b31270aebf4f3fd706ac1c4087c547df5d3"
+          }
+        },
+        {
+          "client_id": "938291175943-2a6f5ekovl6gnramo1833on7nent2qsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-Zo6gCBfL2tLduM-8HqtrkGIGX4GB4SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938291175943-2a6f5ekovl6gnramo1833on7nent2qsi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
