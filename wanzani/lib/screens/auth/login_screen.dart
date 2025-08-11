@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanzani/api/auth.dart';
 import 'package:wanzani/screens/Home/home_screen.dart';
 import 'forgot_password_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -20,19 +22,74 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
   bool _loading = false;
 
+//  void _signIn() async {
+//    setState(() => _loading = true);
+//    try {
+//      final email = _emailController.text.trim();
+//      final password = _passwordController.text.trim();
+//
+//      await _auth.signInWithEmailAndPassword(email: email, password: password);
+//
+//      // Navigate to HomeScreen on success
+//      if (mounted) {
+//        Navigator.pushReplacement(
+//          context,
+//          MaterialPageRoute(builder: (context) => const HomeScreen()),
+//        );
+//      }
+//    } on FirebaseAuthException catch (e) {
+//      String message = 'login_failed'.tr();
+//      if (e.code == 'user-not-found') {
+//        message = 'user_not_found'.tr();
+//      } else if (e.code == 'wrong-password') {
+//        message = 'wrong_password'.tr();
+//      }
+//      ScaffoldMessenger.of(
+//        context,
+//      ).showSnackBar(SnackBar(content: Text(message)));
+//    } finally {
+//      setState(() => _loading = false);
+//    }
+//  }
+
   void _signIn() async {
     setState(() => _loading = true);
     try {
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
 
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      // 1️⃣ Pehle tumhari API ka login call
+      final apiResponse = await Auth().loginUser(
+        username: email, // API me "username" ke liye tum email bhej rahe ho
+        password: password,
+      );
 
-      // Navigate to HomeScreen on success
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+      if (apiResponse['success'] == true) {
+        // Access token store kar lo (SharedPreferences ya GetStorage etc.)
+        final token = apiResponse['body']['access_token'];
+        print("✅ API Access Token: $token");
+
+        // Example: store in SharedPreferences
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('access_token', token);
+        print(
+            "✅ Access Token stored in SharedPreferences ${prefs.getString('access_token')}");
+
+        // 2️⃣ Agar API success hui to Firebase login karo
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+
+        // Navigate to HomeScreen
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
+        }
+      } else {
+        // API fail ho gayi to message dikhao
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("API login failed")),
         );
       }
     } on FirebaseAuthException catch (e) {
@@ -42,9 +99,12 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (e.code == 'wrong-password') {
         message = 'wrong_password'.tr();
       }
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(message)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
+    } catch (e) {
+      print("🔥 Error in login: $e");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Something went wrong")));
     } finally {
       setState(() => _loading = false);
     }
