@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class auth {
+class Auth {
   Future<Map<String, dynamic>> signUpUser({
     required String username,
     required String password,
     required String email,
+    required String confirmPassword,
   }) async {
     try {
       var headers = {
@@ -14,10 +15,10 @@ class auth {
       };
 
       var body = {
-        "username": username, // API requires username separately
+        "username": username,
         "password": password,
         "email": email,
-        "confirm_password": password,
+        "confirm_password": confirmPassword,
         "server_key":
             "4e64dd15c58ad26dbf0368fe30497f6103660b12-7051cefa69738f6c908f284780f8363f-63888596",
       };
@@ -39,13 +40,13 @@ class auth {
       } catch (e) {
         print('⚠️ JSON Decode Failed: $e');
         data = {
-          "success": false,
+          "api_status": response.statusCode,
           "raw_response": response.body,
         };
       }
 
       return {
-        'success': (data['success'] == true),
+        'success': (data['api_status'] == 200),
         'body': data,
       };
     } catch (e) {

@@ -36,18 +36,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     try {
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
-      final confirm_password = _passwordController.text.trim();
+      final confirmPassword = _passwordController.text.trim();
       final displayName =
-          '${_firstNameController.text.trim()} ${_lastNameController.text.trim()}';
+          '${_firstNameController.text.trim()}${_lastNameController.text.trim()}';
       final phone = '$_countryCode${_phoneController.text.trim()}';
 
-      final apiAuth = auth();
+      final apiAuth = Auth();
       final apiResult = await apiAuth.signUpUser(
-        username: email,
+        username: displayName,
         password: password,
         email: email,
-        //: password, // Ensure this matches the API requirements
-        // email: email,
+        confirmPassword: confirmPassword,
       );
 
 // Debug prints
