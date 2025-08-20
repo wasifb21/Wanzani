@@ -120,9 +120,13 @@ class LiveStreamPage extends StatelessWidget {
               backgroundColor: Colors.blue,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
-            onPressed: () async {
-              final url = Uri.parse('https://www.wanzani.com/series/');
-              await launchUrl(url, mode: LaunchMode.externalApplication);
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const ExploreChannelsPage(),
+                ),
+              );
             },
             child: Text(
               "Get Started".tr(),

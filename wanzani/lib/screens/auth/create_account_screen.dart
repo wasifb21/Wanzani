@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:wanzani/api/auth.dart';
 import 'package:wanzani/screens/VerificationProcesspage/Verification_Process_ screen.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 
@@ -35,10 +36,31 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     try {
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
+      final confirm_password = _passwordController.text.trim();
       final displayName =
           '${_firstNameController.text.trim()} ${_lastNameController.text.trim()}';
       final phone = '$_countryCode${_phoneController.text.trim()}';
 
+      final apiAuth = auth();
+      final apiResult = await apiAuth.signUpUser(
+        username: email,
+        password: password,
+        email: email,
+        //: password, // Ensure this matches the API requirements
+        // email: email,
+      );
+
+// Debug prints
+      print('API signUpUser() success: ${apiResult['success']}');
+      print('API signUpUser() response body: ${apiResult['body']}');
+
+      if (apiResult['success'] != true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('api_registration_failed'.tr())),
+        );
+        setState(() => _loading = false);
+        return;
+      }
       // Create account
       await _auth.createUserWithEmailAndPassword(
         email: email,
