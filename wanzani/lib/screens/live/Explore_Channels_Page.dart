@@ -126,8 +126,7 @@ class _ExploreChannelsPageState extends State<ExploreChannelsPage> {
             _buildMostPopularButton(),
             const SizedBox(height: 16),
             ..._filteredChannels
-                .map((channel) => _buildChannelCard(context, channel))
-                .toList(),
+                .map((channel) => _buildChannelCard(context, channel)),
             const SizedBox(height: 24),
             _buildPagination(),
           ],

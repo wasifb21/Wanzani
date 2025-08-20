@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:wanzani/screens/live/Explore_Channels_Page.dart';
-import 'package:wanzani/screens/live/featured_channels_page.dart';
 import 'package:wanzani/screens/searchscreen/search_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LiveStreamPage extends StatelessWidget {
   const LiveStreamPage({super.key});

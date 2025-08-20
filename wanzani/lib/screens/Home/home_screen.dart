@@ -16,7 +16,7 @@ import 'package:wanzani/screens/settingscreen/settings_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final db = FirebaseDatabase.instance.ref();
   Set<String> following = {};
   String? _postLocation;
-  bool _showLocationField = false;
+  final bool _showLocationField = false;
   final TextEditingController _locationController = TextEditingController();
   String? selectedLocation;
   bool showLocationField = false;
@@ -88,8 +88,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               }).where((m) {
                 final u = m['url'] as String?;
                 if (u == null || u.isEmpty) return false;
-                if (!u.startsWith('http') && !File(u).existsSync())
+                if (!u.startsWith('http') && !File(u).existsSync()) {
                   return false;
+                }
                 return true;
               }).toList()
                 ..sort(
@@ -750,13 +751,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           Tab(text: 'TV & Radio'.tr()),
         ],
         onTap: (i) {
-          if (i == 2)
+          if (i == 2) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => LiveStreamPage()),
             ).then((_) => _tabController.index = 0);
-          else
+          } else {
             _tabController.index = i;
+          }
         },
         labelColor: Colors.black,
         unselectedLabelColor: Colors.grey,

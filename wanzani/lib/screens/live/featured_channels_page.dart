@@ -10,7 +10,7 @@ class FeaturedChannelsPage extends StatefulWidget {
 }
 
 class _FeaturedChannelsPageState extends State<FeaturedChannelsPage> {
-  List<Map<String, dynamic>> _channels = [
+  final List<Map<String, dynamic>> _channels = [
     {
       'id': '1',
       'title': 'Sports Channel',
@@ -46,7 +46,7 @@ class _FeaturedChannelsPageState extends State<FeaturedChannelsPage> {
   ];
   List<Map<String, dynamic>> _filteredChannels = [];
   bool _isSearching = false;
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -133,8 +133,7 @@ class _FeaturedChannelsPageState extends State<FeaturedChannelsPage> {
                   ),
                   const SizedBox(height: 12),
                   ..._filteredChannels
-                      .map((channel) => _buildChannelCard(context, channel))
-                      .toList(),
+                      .map((channel) => _buildChannelCard(context, channel)),
                 ],
               ),
       ),

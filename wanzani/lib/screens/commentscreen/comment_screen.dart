@@ -8,10 +8,10 @@ class CommentScreen extends StatefulWidget {
   final String postOwnerId;
 
   const CommentScreen({
-    Key? key,
+    super.key,
     required this.postKey,
     required this.postOwnerId,
-  }) : super(key: key);
+  });
 
   @override
   State<CommentScreen> createState() => _CommentScreenState();
@@ -28,9 +28,10 @@ class _CommentScreenState extends State<CommentScreen> {
         final d = Map<String, dynamic>.from(ent.value as Map);
         d['key'] = ent.key;
         return d;
-      }).toList()..sort(
-        (a, b) => (a['timestamp'] as int).compareTo(b['timestamp'] as int),
-      );
+      }).toList()
+        ..sort(
+          (a, b) => (a['timestamp'] as int).compareTo(b['timestamp'] as int),
+        );
     });
   }
 
@@ -127,8 +128,8 @@ class _CommentScreenState extends State<CommentScreen> {
                       avatar = photo.startsWith('http')
                           ? NetworkImage(photo)
                           : File(photo).existsSync()
-                          ? FileImage(File(photo))
-                          : avatar;
+                              ? FileImage(File(photo))
+                              : avatar;
                     }
 
                     return ListTile(

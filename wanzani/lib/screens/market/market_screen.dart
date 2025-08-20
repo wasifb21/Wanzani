@@ -23,7 +23,7 @@ class _MarketScreenState extends State<MarketScreen> {
     super.initState();
     dbRef.onValue.listen((event) {
       final data = event.snapshot.value;
-      print('Firebase snapshot value: ' + data.toString());
+      print('Firebase snapshot value: $data');
       if (data is Map) {
         final loaded = data.entries.map((e) {
           final value = Map<String, dynamic>.from(e.value as Map);
@@ -32,7 +32,7 @@ class _MarketScreenState extends State<MarketScreen> {
         setState(() {
           stations = loaded;
           loading = false;
-          print('Loaded stations: ' + stations.toString());
+          print('Loaded stations: $stations');
         });
       } else {
         setState(() {
@@ -175,29 +175,29 @@ class _MarketScreenState extends State<MarketScreen> {
                 children: [
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text("Today"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.black,
                     ),
+                    child: const Text("Today"),
                   ),
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                    ),
                     child: const Text("This Week"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                    ),
                   ),
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text("This Month"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       foregroundColor: Colors.white,
                     ),
+                    child: const Text("This Month"),
                   ),
                 ],
               ),
@@ -312,7 +312,7 @@ class _MarketScreenState extends State<MarketScreen> {
   }
 
   Widget _buildFeaturedCard(Map<String, dynamic>? station) {
-    print('Building featured card. Station: ' + station.toString());
+    print('Building featured card. Station: $station');
     if (station == null) {
       // fallback to static
       return _staticFeaturedCard();
@@ -351,7 +351,7 @@ class _MarketScreenState extends State<MarketScreen> {
               width: double.infinity,
               fit: BoxFit.cover,
               errorWidget: (context, url, error) {
-                print('Image error: ' + error.toString());
+                print('Image error: $error');
                 return Icon(Icons.error, color: Colors.red);
               },
             ),
@@ -430,7 +430,7 @@ class _MarketScreenState extends State<MarketScreen> {
                       }
                       print('Audio loaded, playing...');
                     } catch (e) {
-                      print('Audio error: ' + e.toString());
+                      print('Audio error: $e');
                     }
                   } else {
                     print('No stream URL found');
@@ -507,7 +507,7 @@ class _MarketScreenState extends State<MarketScreen> {
                         }
                         print('Audio loaded, playing...');
                       } catch (e) {
-                        print('Audio error: ' + e.toString());
+                        print('Audio error: $e');
                       }
                     } else {
                       print('No stream URL found');

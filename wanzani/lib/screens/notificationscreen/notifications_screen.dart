@@ -149,11 +149,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             child: StreamBuilder<List<Map<String, dynamic>>>(
               stream: notificationsStream,
               builder: (c, snap) {
-                if (!snap.hasData)
+                if (!snap.hasData) {
                   return const Center(child: CircularProgressIndicator());
+                }
                 final filtered = filter(snap.data!);
-                if (filtered.isEmpty)
+                if (filtered.isEmpty) {
                   return Center(child: Text('no notifications'));
+                }
 
                 return ListView.builder(
                   padding: const EdgeInsets.symmetric(
